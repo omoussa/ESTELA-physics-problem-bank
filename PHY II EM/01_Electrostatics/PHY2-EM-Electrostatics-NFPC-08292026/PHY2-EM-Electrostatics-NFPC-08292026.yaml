@@ -4,12 +4,12 @@ bank_info:
   description: |-
     These problems involve net force, Coulomb's law, and vector addition.
   date_created: 08-31-2026
-  status: draft
+  status: ready
   LLM: ChatGPT 5.6
   generation prompts:
   - prompt 1: Testing formatting with delimiters for math and figures in the question head and feedback.
   authors:
-  - author 1
+  - O. Moussa
 questions:
 - numerical:
     id: q1
