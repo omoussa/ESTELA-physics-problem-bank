@@ -1,13 +1,68 @@
 bank_info:
   title: Electrostatic Forces due to Point Charges
-  bank_id: PHY2-EM-NFPC-test8
+  bank_id: PHY2-EM-Electrostatics-NFPC-08292026
   description: |-
-    These problems involve net force, Coulomb's law, and vector addition.
+    These problems involve calculating Net Electrostatic Force (Coloumbs Law and Vector addition)
   date_created: 08-31-2026
   status: ready
-  LLM: ChatGPT 5.6
+  LLM: ChatGPT 5.6 Sol
   generation prompts:
-  - prompt 1: Testing formatting with delimiters for math and figures in the question head and feedback.
+  - prompt 0: |
+      + sources : charge_diagram_generator.py found here: https://github.com/omoussa/ESTELA-physics-problem-bank/blob/afe522721b0a298f2794b0dbf77765efe3d4d5d3/PHY%20II%20EM/01_Electrostatics/PHY2-EM-Electrostatics-NFPC-08292026/supporting%20files/charge_diagram_generator.py
+  - prompt 1: |-
+     I'm writing a problem bank with 12 problems about coulomb's law. 
+     In each problem, 3 charges are located at different locations in space, 
+     and the object of the problem is to calculate the net force exerted on one of the charges due to the combined effect of the other two. 
+     The charges will be located on the nodes of a 2D grid: {nodes = (x,y), where x \in [-2d:d:2d] and y  \in [-2d:d:2d] }. 
+     First locate the charge of interest (randomly pick q1, q2, or q3), 
+     then locate one of the other charges on either the same x or the same y. 
+     the third charge has to be on a different x and y from the charge of interest, but it's ok if it's on the same x or y as the second charge. 
+     The values of the charges have to be of the same order of magnitude in each problem, but can vary from problem to problem. 
+     They can be integer multiples of e, the elementary charge (e.g. q1 = +2e, q2=-3e and q3=-5e) or can by in the hundreds of nC range or micro-C range.
+     The distance d can be in tens of nm range or micro-meters, or mm, or cm. 
+     Do not write the problems yet -- what I need now is just a table listing the values of the charges and their locations. 
+  - prompt 2: |
+      write and execute a python script that uses @charge_diagram_generator.py to generate typeset figures for each scenario, 
+      and resize the images to width of 400px, and create a zip file with all the images.
+      I want all three figures per scenario -- the geometry figure to include with the problem head and the two figures with the arrows to include with the solution. 
+      I also want to show a d x d grid on the geometry figure with at least one label on x and one label on y showing the distance d.
+  - prompt 3: |
+      Now for the problem heads, generate strings containing an html snippet similar to the following example, but with the corresponding values for each problem, and put them all in one file to be used later:         "<p>Three charged objects are fixed in the following configuration, where \( e\) is the elementary charge, and \( d= 0.20 \mu m \):</p> 
+        <ul> 
+            <li>\( q_1=+2e \) is located at \( \vec{r}_1 = (0, d) \),</li> 
+            <li>\( q_2=-3e \) is located at \( \vec{r}_2 = (2d, d) \), and</li> 
+            <li>\( q_3=-5e \) is located at \( \vec{r}_3 = (2d, 0).</li> 
+        </ul> 
+        <p>Calculate the magnitude of the net force acting on \(q_1\) due to the combined effect of \(q_2\) and \(q_3\).&nbsp;</p> 
+        <p>Provide your answer in SI units, in Scientific Notation with two significant digits.</p>"
+  - prompt 4: |
+      similarly, generate and store solution snippets similar to the following: 
+            '<h4><span style="text-decoration: underline;">Option 1, Use the vector equation for Electrostatic Force (recommended).</span></h4>
+            <p><strong>First, calculate the contribution from each of the charges acting on q1:</strong></p>
+            <p><strong>The force of \(q_2\) on \(q_1\):</strong></p>
+            <p style="padding-left: 40px;">\( \vec{F}_{q_2\text{ on } q_1}=k\frac{q_2\ q_1}{r_{21}^2}\ \hat{r}_{21} \), where \( \hat{r}_{21} = +\hat{j}\) is the direction from \(q_2\) towards \(q_1\).</p>
+            <p style="padding-left: 40px;">Therefore</p>
+            <p style="padding-left: 40px;">\(\begin{align}<br />\vec{F}_{q_2\text{ on } q_1}&amp;=k\frac{q_2\ q_1}{r_{21}^2}\ \hat{r}_{21} \\ &amp;= k\frac{(-3e)(2e)}{d^2}\ (+\hat{j}) \\ &amp;= k\frac{6e^2}{d^2}\ (-\hat{j}) \end{align}\)</p>
+            <p style="padding-left: 40px;">Notice that \(q_2 \times q_1\) is negative, thus the force \(\vec{F}_{21}\) is in the opposite direction of \( \hat{r}_{21}\)&nbsp;</p>
+            <p><strong>Similarly for the force of \(q_3\) on \(q_1\):</strong></p>
+            <p style="padding-left: 40px;">taking \(\hat{r}_{31} = \frac{-2d \hat{i} + d\hat{j}}{|-2d \hat{i} + d\hat{j}|}\) as the direction from \(q_3\) towards \(q_1\).&nbsp;</p>
+            <p style="padding-left: 40px;">\(\begin{align}\vec{F}_{q_3\text{ on } q_1}&amp;=k\frac{q_3\ q_1}{r_{31}^2}\ \hat{r}_{31} \\ &amp;= k\frac{(-5e)(2e)}{\left(\sqrt{d^2+(2d)^2}\right)^2}\ \left(\frac{-2d}{\sqrt{(2d)^2+d^2}}\hat{i}+\frac{d}{\sqrt{(2d)^2+d^2}}\hat{j}\right) \\ &amp;= k\frac{10e^2}{5d^2}\ \left(\frac{2}{\sqrt{5}}\hat{i}-\frac{1}{\sqrt{5}}\hat{j}\right) \end{align}\)</p>
+            <p><strong>Now, combine both contributions to find the net force acting on \(q_1\) by adding the \(\hat{i}\) and \(\hat{j}\) terms separately:</strong></p>
+            <p style="padding-left: 40px;">\(\begin{align}<br />\Sigma\vec{F}_{\text{ on } q_1}&amp;= \vec{F}_{q_2\text{ on } q_1} + \vec{F}_{q_3\text{ on } q_1} \\<br />&amp;= k\frac{6e^2}{d^2}\ (-\hat{j}) + k\frac{10e^2}{5d^2}\ \left(\frac{2}{\sqrt{5}}\hat{i}-\frac{1}{\sqrt{5}}\hat{j}\right) \\<br />&amp;= k\frac{e^2}{d^2}\ \left(\frac{4}{\sqrt{5}}\hat{i}+\left(-6-\frac{2}{\sqrt{5}}\right)\hat{j}\right)<br />\end{align}\)</p>
+            <p><strong>then find the magnitude &amp; direction of the resulting vector:</strong></p>
+            <p style="padding-left: 40px;">\(\begin{align}<br />\Sigma{F}_{\text{ on } q_1}<br />&amp;= k\frac{e^2}{d^2}\ \sqrt{\left(\frac{4}{\sqrt{5}}\right)^2+\left(-6-\frac{2}{\sqrt{5}}\right)^2}<br />\end{align}\)</p>
+            <p style="padding-left: 40px;">and the direction relative to the x-axis</p>
+            <p style="padding-left: 40px;">\(\begin{align}<br />\theta<br />&amp;= \tan^{-1} \left(\left(-6-\frac{2}{\sqrt{5}}\right)/\left(\frac{4}{\sqrt{5}}\right)\right)<br />\end{align}\)</p>
+            <hr />
+            <h4><span style="text-decoration: underline;">Option 2, Find the magnitude and the direction separately.</span></h4>
+            <p><span style="font-family: inherit; font-size: 1rem;">To figure out the net force on \(q_1\) due to \(q_2\) and \(q_3\), first we calculate the magnitudes of the individual forces, and then we add them as vectors.</span></p>
+            
+            <p>The force of \(q_2\) on \(q_1\) has a magnitude of \(F_{q_2\text{ on } q_1}=k\frac{|q_2\ q_1|}{r_{12}^2}\) in the direction of \(-\hat{j}\) (since \(q_2\) is attracting \(q_1\) )</p> 
+            <p>The force of \(q_3\) on \(q_1\) has a magnitude of \(F_{q_3\text{ on } q_1}=k\frac{|q_3\ q_1|}{r_{13}^2}\) in the direction of \(\frac{+2d}{\sqrt{(2d)^2+d^2}}\hat{i}+\frac{-d}{\sqrt{(2d)^2+d^2}}\hat{j}\)&nbsp; (since \(q_3\) is attracting \(q_1\))</p> 
+            <p>As in option-1, add the x-components together and the y-components together to find the x- and y-components of the net force, which you can then use to find the magnitude and direction of the net force.</p> 
+            <hr /> '
+  -prompt 5: |
+      Let's put it all together in a YAML file for the problem-bank. 
   authors:
   - O. Moussa
 questions:
