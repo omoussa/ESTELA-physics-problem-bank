@@ -1,6 +1,6 @@
 bank_info:
   title: Horizontal-launch projectile motion
-  bank_id: PHY1-2DM-HL-09262026
+  bank_id: PHY1-2D-PMHL-09262026
   description: Ten numerical problems involving horizontal launch followed by free fall on Earth or the Moon. Targets
     include launch speed, horizontal range, flight time, final speed, and final velocity direction. Question text
     and complete eight-step solutions use HTML with MathJax delimiters.
