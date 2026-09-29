@@ -5,7 +5,7 @@ bank_info:
     include launch speed, horizontal range, flight time, final speed, and final velocity direction. Question text
     and complete eight-step solutions use HTML with MathJax delimiters.
   date created: 09-26-2026
-  status: draft
+  status: ready
   learning objectives:
     - Resolve horizontal-launch projectile motion into horizontal and vertical components.
     - Apply constant-acceleration kinematics to determine launch speed, range, fall time, final speed, or final
